@@ -1,19 +1,30 @@
+//A reference to the save button
 const savebtn = document.getElementById('savebtn');
+
+//a global variable, which is asigned to nothing
 let notes = "";
+
+//The main function, to intialize our application
 init();
 
 function init(){
     let out = "";
-    let noteArray = JSON.parse(localStorage.getItem('noteData'));
+    let noteArray = JSON.parse(localStorage.getItem('noteData'));//where all the notes will be stored "noteData"
 
+
+    //to test if there is no note or there is note already
     if(noteArray != null && noteArray != ""){
         noteArray = JSON.parse(localStorage.getItem('noteData'));
 
+        //to loop through the saved notes
         for(let x = 0; x < noteArray.length; x++){
+            //build the output
             out += "<option value=" +x + ">";
             out += noteArray[x].title;
             out += "</option>";
 
+
+            //sending thye noteArray to the id noteMaster 
             document.getElementById('noteMaster').innerHTML = out;
         }
 
@@ -33,6 +44,8 @@ function init(){
     }
 }
 
+
+//Function to display the user input for the notes
 function writeNote(){
     document.getElementById('read').style.display = "none";
     document.getElementById('input').style.display = "block";
@@ -40,16 +53,19 @@ function writeNote(){
     document.getElementById('noteBody').value = "";
 }
 
+//diplays the saved notes and hides the input section
 function readNotes(){
     document.getElementById('read').style.display = "block";
     document.getElementById('input').style.display = "none";
 }
 
+
+//dthis function which sends the saved items in local storage arranged
 function displayNote(note){
     let noteArray= JSON.parse(localStorage.getItem('noteData'));
-    let out = "<h2>" + noteArray[note].title + "</h2>";
-    out += "<h4>Date: " + new Date(noteArray[note].date).toDateString() + "</h4>";
-    out += "<h6>" + noteArray[note].body + "</h6>";
+    let out = "<h2>" + noteArray[note].title + "</h2><br>";
+    out += "<h4>Date: " + new Date(noteArray[note].date).toDateString() + "</h4><br>";
+    out += "<h6>" + noteArray[note].body + "</h6><br>";
     out += "<button id='deletebtn'>Delete</button>";
     document.getElementById('noteDisplay').innerHTML = out;
     document.getElementById('deletebtn').onclick = function(){
@@ -59,6 +75,7 @@ function displayNote(note){
     }
 }
 
+//the save button on click function,
 savebtn.onclick = function(){
     const noteDate = new Date();
     const noteTitle = document.getElementById('noteTitle').value;
@@ -72,6 +89,7 @@ savebtn.onclick = function(){
     saveNotes(theNote);
 }
 
+//save note to the local storage
 function saveNotes(note){
     let noteArray = JSON.parse(localStorage.getItem('noteData'));
     if(noteArray == null){
