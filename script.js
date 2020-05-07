@@ -49,8 +49,8 @@ function displayNote(note){
     let noteArray= JSON.parse(localStorage.getItem('noteData'));
     let out = "<h2>" + noteArray[note].title + "</h2>";
     out += "<h4>Date: " + new Date(noteArray[note].date).toDateString() + "</h4>";
-    out += "<p>" + noteArray[note].body + "</p>";
-    out += "<button id='deletebtn'>Delete</button>"
+    out += "<h6>" + noteArray[note].body + "</h6>";
+    out += "<button id='deletebtn'>Delete</button>";
     document.getElementById('noteDisplay').innerHTML = out;
     document.getElementById('deletebtn').onclick = function(){
         noteArray.splice(note,1);
